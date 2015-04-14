@@ -46,7 +46,8 @@ class Controller extends BaseController
             ->with('numTranslations', $numTranslations)
             ->with('numChanged', $numChanged)
             ->with('editUrl', action('\Barryvdh\TranslationManager\Controller@postEdit', array($group)))
-            ->with('deleteEnabled', $this->manager->getConfig('delete_enabled'));
+            ->with('deleteEnabled', $this->manager->getConfig('delete_enabled'))
+            ->with('additionsEnabled', $this->manager->getConfig('additions_enabled'));
     }
 
     public function getView($group)
