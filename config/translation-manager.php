@@ -30,6 +30,13 @@ return array(
 	'additions_enabled' => true,
 
 	/**
+	 * Editable locale, leave blank to edit them all
+	 *
+	 * @type array
+	 */
+	'editable_locale' => array(),
+
+	/**
 	 * Exclude specific groups from Laravel Translation Manager. 
 	 * This is useful if, for example, you want to avoid editing the official Laravel language files.
 	 *
