@@ -9,6 +9,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="<?= asset('laravel-translation-manager/js/helpers.js') ?>"></script>
     <script src="<?= asset('laravel-translation-manager/js/trumbowyg/trumbowyg.min.js') ?>"></script>
     <link rel="stylesheet" href="<?= asset('laravel-translation-manager/js/trumbowyg/ui/trumbowyg.min.css') ?>">
     <script>//https://github.com/rails/jquery-ujs/blob/master/src/rails.js
@@ -17,6 +18,10 @@
     <style>
         a.status-1{
             font-weight: bold;
+        }
+
+        .editable-buttons {
+            display: block;
         }
     </style>
     <script>
@@ -29,7 +34,7 @@
                 }
             });
 
-            $('.editable').editable().on('hidden', function(e, reason){
+            $('.editable').editable({ 'inputclass': 'input-large translation-input' }).on('hidden', function(e, reason){
                 var locale = $(this).data('locale');
                 if(reason === 'save'){
                     $(this).removeClass('status-0').addClass('status-1');
@@ -40,6 +45,22 @@
                         $next.editable('show');
                     }, 300);
                 }
+            });
+
+            $('.editable').on('click', function() {
+                // A little hacky here, needs improvement
+                setTimeout(function() {
+                    var editableTranslation = $('.translation-input'),
+                        translationText = editableTranslation.val(),
+                        translationTextStripped = strip_tags(translationText);
+
+                    if(translationText !== translationTextStripped) {
+                        editableTranslation.trumbowyg({
+                            btns: ['bold', 'italic', 'underline'],
+                            fullscreenable: false
+                        });
+                    }  
+                }, 500);
             });
 
             $('.group-select').on('change', function(){
