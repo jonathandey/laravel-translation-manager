@@ -79,6 +79,11 @@ class ManagerServiceProvider extends ServiceProvider {
         $this->publishes([
             $migrationPath => base_path('database/migrations'),
         ], 'migrations');
+
+        $publicPath = __DIR__.'/../public';
+        $this->publishes([
+            $publicPath => public_path('laravel-translation-manager'),
+        ], 'public');
         
         $config = $this->app['config']->get('translation-manager.route', []);
         $config['namespace'] = 'Barryvdh\TranslationManager';
